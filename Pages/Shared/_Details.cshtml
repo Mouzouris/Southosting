@@ -1,0 +1,43 @@
+@model southosting.Models.Advert
+
+@{
+    var submittedClass = Model.Submitted ? "badge-success" : "badge-danger";
+    var acceptedClass = Model.Accepted ? "badge-success" : "badge-danger";
+    var submittedText = Model.Submitted ? "Submitted" : "Not submitted";
+    var acceptedText = Model.Accepted ? "Accepted" : "Not accepted";
+    var API_KEY = "AIzaSyCV7QVEuaTXmggDj5uX8y4D2bTD2vHf4Xs";
+}
+
+
+<div class="row mb-5">
+    <div class="col">
+@if(Model.Uploads != null && Model.Uploads.Count > 0)
+{
+        @await Html.PartialAsync("_Carousel", Model)
+}
+else
+{
+        <h5>No images have been uploaded.</h5>
+}
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div>
+            <h4 class="text-capitalize">@Model.Title</h4>
+            <p class="card-text">@Model.Description</p>
+            <h5 class="mx-auto w-100">
+                <span class="badge badge-pill @submittedClass">@submittedText</span>
+                <span class="badge badge-pill @acceptedClass">@acceptedText</span>
+            </h5>            <p>Postcode: @Model.Postcode</p>
+            <h6 class="text-capitalize">by @Model.Landlord.FullName</h6>
+@if((Model.Comment != null && Model.Comment != "") && (Model.LandlordID == UserManager.GetUserId(User) || User.IsInRole(Constants.AdministratorRole)))
+{
+            <p>Comment: @Model.Comment</p>
+}
+        </div>
+    </div>
+    <div class="col">
+        <iframe src="https://maps.google.co.uk/maps/embed/v1/place?q=@Model.Postcode&key=@API_KEY" frameborder="0" style="width:100%;height:100%;" allowfullscreen></iframe>
+    </div>
+</div>

@@ -1,0 +1,83 @@
+@page
+@model southosting.Pages.Admin.GenerateModel
+@using southosting.Data
+@using southosting.Models
+
+@{
+    ViewData["Title"] = "Generate";
+}
+
+<h2>Generate</h2>
+
+<div>
+    <h3>Choose how many of each type you would like to generate.</h3>
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Input.Students" class="control-label"></label>
+            <input type="number" asp-for="Input.Students" class="form-control" />
+            <span asp-validation-for="Input.Students" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Input.Landlords" class="control-label"></label>
+            <input type="number" asp-for="Input.Landlords" class="form-control" />
+            <span asp-validation-for="Input.Landlords" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Input.Adverts" class="control-label"></label>
+            <input type="number" asp-for="Input.Adverts" class="form-control" />
+            <span asp-validation-for="Input.Adverts" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Input.AdvertPlaceholder" class="control-label"></label>
+            <input type="text" asp-for="Input.AdvertPlaceholder" class="form-control" />
+            <span asp-validation-for="Input.AdvertPlaceholder" class="text-danger"></span>
+        </div>
+        <input type="submit" value="Generate" class="btn btn-primary" />
+        <a class="btn btn-link" asp-page="./Index">Back to Admin console</a>
+    </form>
+</div>
+
+@if (Model.Input.CreatedStudents.Count > 0 ||
+     Model.Input.CreatedLandlords.Count > 0 ||
+     Model.Input.CreatedAdverts.Count > 0)
+{
+    <h2>Results</h2>
+
+    if(Model.Input.CreatedStudents.Count > 0)
+    {
+        <h3>Students</h3>
+        foreach(SouthostingUser user in Model.Input.CreatedStudents)
+        {
+            <div>
+                <h4>@user.FullName</h4>
+                <p>@user.Email</p>
+            </div>
+        }
+    }
+
+    if(Model.Input.CreatedLandlords.Count > 0)
+    {
+        <h3>Landlords</h3>
+        foreach(SouthostingUser user in Model.Input.CreatedLandlords)
+        {
+            <div>
+                <h4>@user.FullName</h4>
+                <p>@user.Email</p>
+            </div>
+        }
+    }
+
+    if(Model.Input.CreatedAdverts.Count > 0)
+    {
+        <h3>Adverts</h3>
+        foreach(Advert advert in Model.Input.CreatedAdverts)
+        {
+            <div>
+                <h4>@advert.Title</h4>
+                <p>Postcode: @advert.Postcode</p>
+                <p>Submitted: @advert.Submitted</p>
+            </div>
+        }
+    }
+}

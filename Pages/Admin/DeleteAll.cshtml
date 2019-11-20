@@ -1,0 +1,19 @@
+@page
+@model southosting.Pages.Admin.DeleteAllModel
+
+@{
+    ViewData["Title"] = "Clear Database";
+}
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">southosting : admin panel</h1>
+        <p class="lead">A Southampton property finder</p>
+        <hr class="my-4">
+        <p>You are about to clear the entire database. Are you sure you want to continue?</p>
+        <form method="post">
+            <a class="btn btn-success btn-lg" asp-page="./Index">Take me back</a>
+            <button type="submit" class="btn btn-danger btn-lg" role="button">Clear Database</button>
+        </form>
+    </div>
+</div>

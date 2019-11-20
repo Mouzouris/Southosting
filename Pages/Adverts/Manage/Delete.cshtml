@@ -1,0 +1,24 @@
+@page "{id:int}"
+@model southosting.Pages.Adverts.Manage.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+    var advert = Model.Advert;
+}
+
+<h2>Delete Advert</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<hr />
+
+@await Html.PartialAsync("_Details", advert)
+
+<hr />
+<div>    
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Advert.ID" />
+        <input type="submit" value="Delete" class="btn btn-danger mr-3" />
+        <a class="btn btn-link" asp-page="./Index">Back to List</a>
+    </form>
+</div>

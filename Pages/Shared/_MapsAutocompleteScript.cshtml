@@ -1,0 +1,27 @@
+
+@{
+    var API_KEY = "AIzaSyCV7QVEuaTXmggDj5uX8y4D2bTD2vHf4Xs";
+}
+
+<script>
+    var placeSearch, autocomplete;
+
+    function initAutocomplete() {
+        autocomplete = new google.maps.places.Autocomplete($("#maps-autocomplete")[0], { types: ['geocode'] });
+        autocomplete.addListener('place_changed', fillInAddress);
+    }
+
+    function fillInAddress() {
+        var place = autocomplete.getPlace();
+        var input = $('#postcode-input');
+        var input_validation = $('#postcode-validation');
+        if (place.types.indexOf('postal_code') > -1) {
+            // it's a post code
+            input.val(place.name);
+            input_validation.text("");
+        } else {
+            input_validation.text("Invalid postcode.");
+        }
+    }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?&libraries=places&callback=initAutocomplete&key=@API_KEY" async defer></script>

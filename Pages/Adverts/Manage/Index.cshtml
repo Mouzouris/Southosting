@@ -1,0 +1,31 @@
+@page
+@model southosting.Pages.Adverts.Manage.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<h2>Advert Management</h2>
+
+@if (User.IsInRole(Constants.AdministratorRole) || User.IsInRole(Constants.LandlordRole))
+{
+<p><a class="btn btn-link" asp-page="Create">Create New Advert</a></p>
+}
+
+<div>
+
+@if (Model.Advert.Any())
+{
+    @foreach (var item in Model.Advert) {
+        @await Html.PartialAsync("_AdvertPriv", item)
+    }
+}
+else if (User.IsInRole(Constants.AdministratorRole) || User.IsInRole(Constants.LandlordRole))
+{
+    <h5>
+        There are no adverts available to you right now.
+        Why not <a asp-page="Create">create one</a>.
+    </h5>
+}
+</div>

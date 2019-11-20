@@ -1,0 +1,22 @@
+@model southosting.Logic.IFormCollectionWrapper
+
+<div class="custom-file mb-1">
+    <label asp-for="@Model.File" class="custom-file-label"></label>
+    <input asp-for="@Model.File" type="file" class="custom-file-input" multiple/>
+    <span asp-validation-for="@Model.File" class="text-danger"></span>
+</div>
+<div>
+    <table id="uploaded-files-table" class="table mt-1">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Filename</th>
+                <th scope="col">Size (kB)</th>
+                <th scope="col">Last modified</th>
+            </tr>
+        </thead>
+        <tbody id="uploaded-files">
+        </tbody>
+    </table>
+</div>
+

@@ -1,0 +1,39 @@
+@page //"{id:int}"
+@model southosting.Pages.Admin.Users.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>SouthostingUser</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SouthostingUser.FirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SouthostingUser.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SouthostingUser.LastName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SouthostingUser.LastName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SouthostingUser.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SouthostingUser.Email)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        <a class="btn btn-link" asp-page="./Index">Back to List</a>
+    </form>
+</div>

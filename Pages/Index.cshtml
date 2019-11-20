@@ -1,0 +1,34 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">southosting</h1>
+        <p class="lead">A Southampton property finder</p>
+        <hr class="my-4">
+        <p>Watch out! This is only a prototype. Find out more about the project here.</p>
+        <a class="btn btn-primary btn-lg" asp-page="/About" role="button">Find out more...</a>
+    </div>
+</div>
+<div class="row">
+
+@if (!SignInManager.IsSignedIn(User))
+{
+    <div class="col">
+        <h2>Login or Create an account to see available properties</h2>
+        <div class="btn-toolbar" role="toolbar">
+            <a class="btn btn-secondary mr-2"
+               asp-area="Identity" asp-page="/Account/Register">
+                Register
+            </a>
+           <a class="btn btn-secondary"
+               asp-area="Identity" asp-page="/Account/Login">
+                Login
+            </a>
+        </div>
+    </div>
+}
+</div>

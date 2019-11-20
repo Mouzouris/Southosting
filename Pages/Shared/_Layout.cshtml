@@ -1,0 +1,105 @@
+﻿@inject Microsoft.Extensions.Options.IOptions<southosting.Logic.AppSettings> appSettings
+@{
+    var options = appSettings.Value;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@options.Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+            integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" 
+            crossorigin="anonymous" />
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" asp-page="/Index">@options.Title</a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbar-content">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item" id="home-link"><a class="nav-link" asp-page="/Index">Home</a></li>
+                <li class="nav-item" id="about-link"><a class="nav-link" asp-page="/About">About</a></li>
+@if (SignInManager.IsSignedIn(User)) {
+                <li class="nav-item" id="adverts-link"><a class="nav-link" asp-page="/Adverts/Index">Adverts</a></li>
+    if (!User.IsInRole(Constants.StudentRole))
+    {
+                <li class="nav-item" id="manage-link">
+                    <a class="nav-link" asp-page="/Adverts/Manage/Index">Manage</a>
+                </li>
+    }
+
+    if (User.IsInRole(Constants.LandlordRole) || User.IsInRole(Constants.AdministratorRole))
+    {
+                <li class="nav-item" id="create-link">
+                    <a class="nav-link" asp-page="/Adverts/Manage/Create">Create Advert</a>
+                </li>
+    }
+
+    if (User.IsInRole(Constants.AdministratorRole))
+    {
+                <li class="nav-item" id="admin-link"><a class="nav-link" asp-page="/Admin/Index">Admin</a></li>
+    }
+}
+            </ul>
+            @await Html.PartialAsync("_LoginPartial")
+        </div>
+    </nav>
+
+    <partial name="_CookieConsentPartial" />
+
+    <div class="container p-5">
+        <div class="alert-danger" role="alert">@ViewData["error"]</div>
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; 2018 - @options.Title</p>
+        </footer>
+    </div>
+
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+            crossorigin="anonymous"
+            integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" 
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" 
+        crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" 
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" 
+        crossorigin="anonymous">
+    </script>
+    <script src="~/js/site.min.js" asp-append-version="true"></script>
+    
+    <script>
+        function activeNav() {
+            var path = window.location.pathname.split('/').slice(1, 4);
+            var id;
+            if (path[0] === '') {
+                id = '#home-link';
+            } else if (path[0] === 'about') {
+                id = '#about-link';
+            } else if (path[0] === 'adverts' && path[1] === 'manage' && path[2] === 'create') {
+                id = '#create-link';
+            } else if (path[0] === 'adverts' && path[1] === 'manage') {
+                id = '#manage-link';
+            } else if (path[0] === 'adverts') {
+                id = '#adverts-link';
+            }
+            $(id).addClass('active');
+            $('.navbar-nav .nav-item').not($(id)).removeClass('active');
+            return id;
+        }
+        $(document).ready(function() {
+            activeNav();
+        });
+    </script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,21 @@
+@model southosting.Models.Advert
+@using Microsoft.AspNetCore.Identity
+@using southosting.Data
+@inject SignInManager<SouthostingUser> SignInManager
+@inject UserManager<SouthostingUser> UserManager
+
+<div class="card mb-5 w-75 mx-auto shadow-hover">
+    <a style="text-decoration:none !important;" asp-page="/Adverts/Details" asp-route-id="@Model.ID">
+        <div class="card-img-top">
+            @await Html.PartialAsync("_Carousel", Model)
+        </div>
+    </a>
+    <div class="card-body">
+        <h5 class="card-title text-capitalize">@Model.Title</h5>
+        <p class="card-text">@Model.Description</p>
+        <h6>by <span class="text-capitalize">@Model.Landlord.FullName</span></h6>
+        <div class="btn-toolbar">
+            <a class="btn btn-secondary w-100" asp-page="/Adverts/Details" asp-route-id="@Model.ID">Details</a>                
+        </div>
+    </div>
+</div>

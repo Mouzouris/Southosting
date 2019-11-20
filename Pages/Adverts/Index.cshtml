@@ -1,0 +1,25 @@
+@page
+@model southosting.Pages.Adverts.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Adverts</h2>
+
+<div>
+
+@if (Model.Advert.Any())
+{
+    @foreach (var item in Model.Advert) {
+            @await Html.PartialAsync("_Advert", item)
+    }
+} 
+else 
+{
+    <h5>
+        There don't seem to be any adverts right now
+    </h5>
+}
+
+</div>

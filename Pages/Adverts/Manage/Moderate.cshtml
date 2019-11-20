@@ -1,0 +1,39 @@
+@page "{id:int}"
+@model southosting.Pages.Adverts.Manage.ModerateModel
+
+@{
+    ViewData["Title"] = "Delete";
+    var advert = Model.Advert;
+}
+
+<h2>Moderate Advert</h2>
+<h3>How do you want to moderate this advert?</h3>
+<hr />
+
+@await Html.PartialAsync("_Details", advert)
+
+<hr />
+
+<div class="row">
+    <div class="container">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Advert.ID" />
+            <div class="form-group">
+                <label asp-for="Input.Accept" class="control-label"></label>
+                <select asp-for="Input.Accept" class="form-control">
+                    <option value="true">Accept</option>
+                    <option value="false" selected>Reject</option>
+                </select>
+                <span asp-validation-for="Input.Accept" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Comment" class="control-label"></label>
+                <textarea asp-for="Input.Comment" class="form-control"></textarea>
+                <span asp-validation-for="Input.Comment" class="text-danger"></span>
+            </div>
+            <input type="submit" value="Moderate" class="btn btn-primary" />
+            <a class="btn btn-link" asp-page="./Index">Back to List</a>
+        </form>
+    </div>
+</div>

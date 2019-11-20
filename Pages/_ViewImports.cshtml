@@ -1,0 +1,10 @@
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Authorization
+@using southosting.Authorization
+@using southosting.Models 
+@using southosting.Data
+@inject IAuthorizationService AuthorizationService
+@inject SignInManager<SouthostingUser> SignInManager
+@inject UserManager<SouthostingUser> UserManager
+@namespace southosting.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers

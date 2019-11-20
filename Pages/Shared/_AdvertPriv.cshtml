@@ -1,0 +1,44 @@
+@model southosting.Models.Advert
+@using Microsoft.AspNetCore.Identity
+@using southosting.Data
+@inject SignInManager<SouthostingUser> SignInManager
+@inject UserManager<SouthostingUser> UserManager
+
+@{
+    var submittedClass = Model.Submitted ? "badge-success" : "badge-danger";
+    var acceptedClass = Model.Accepted ? "badge-success" : "badge-danger";
+    var submittedText = Model.Submitted ? "Submitted" : "Not submitted";
+    var acceptedText = Model.Accepted ? "Accepted" : "Not accepted";
+}
+
+<div class="card mb-3 w-75 mx-auto">
+    <div class="card-img-top">
+        @await Html.PartialAsync("_Carousel", Model)
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">@Model.Title</h4>
+        <p class="card-text">@Model.Description</p>
+        <h5 class="mx-auto w-100">
+            <span class="badge badge-pill @submittedClass">@submittedText</span>
+            <span class="badge badge-pill @acceptedClass">@acceptedText</span>
+        </h5>
+@if (Model.Comment != "" && Model.Comment != null && !Model.Accepted && Model.LandlordID == UserManager.GetUserId(User))
+{
+        <p>Comment: <span class="text-danger">@Model.Comment</span></p>
+}
+        <h6>by <span class="text-capitalize">@Model.Landlord.FullName</span></h6>
+        <div class="btn-toolbar">
+            <a class="btn btn-secondary mr-2 mb-2" asp-page="/Adverts/Details" asp-route-id="@Model.ID">Details</a>
+@if (User.IsInRole(Constants.AdministratorRole) || Model.LandlordID == UserManager.GetUserId(User))
+{
+            <a class="btn btn-secondary mr-2 mb-2" asp-page="/Adverts/Manage/Upload" asp-route-id="@Model.ID">Uploads</a>
+            <a class="btn btn-secondary mr-2 mb-2" asp-page="/Adverts/Manage/Edit" asp-route-id="@Model.ID">Edit</a>
+            <a class="btn btn-secondary mr-2 mb-2" asp-page="/Adverts/Manage/Delete" asp-route-id="@Model.ID">Delete</a>
+}
+@if (Model.Submitted && !Model.Accepted && (User.IsInRole(Constants.AdministratorRole) || User.IsInRole(Constants.AccommodationOfficerRole)))
+{
+           <a class="btn btn-secondary mr-2 mb-2" asp-page="/Adverts/Manage/Moderate" asp-route-id="@Model.ID">Moderate</a>
+}
+        </div>
+    </div>
+</div>

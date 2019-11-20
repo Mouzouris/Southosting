@@ -1,0 +1,53 @@
+@page "{id:int}/{handler?}"
+@using southosting.Logic
+@model southosting.Pages.Adverts.Manage.UploadModel
+@{
+    ViewData["Title"] = "Uploads";
+}
+
+<h2>Uploads</h2>
+<hr />
+
+<div class="row">
+    <div class="col">
+        <form method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Advert.ID" />
+            @await Html.PartialAsync("_FileUpload", new IFormCollectionWrapper { File = Model.Input.Image })
+            <input type="submit" value="Upload" class="btn btn-primary" />
+        </form>
+    </div>
+</div>
+
+@if(Model.Uploads.Count > 0)
+{
+<hr />
+<h3>Current Uploads</h3>
+<div class="container">
+    <div class="card-deck">
+@foreach (var item in Model.Uploads)
+{
+        <div class="card mb-3 w-50">
+            <img class="card-img-top" src="@item.ImagePath" alt="@item.OriginalFileName" />
+            <div class="card-body">
+                <h5 class="card-title">@item.OriginalFileName</h5>
+                <div class="card-text">
+                    <p>
+                        Uploaded: @item.Timestamp
+                    </p>
+                </div>
+            </div>
+            <form method="post" class="card-footer">
+                <input type="hidden" name="UploadId" value="@item.Id" />
+                <input class="btn btn-danger" type="submit" value="Delete" asp-page-handler="Delete" />
+            </form>
+        </div>
+}
+    </div>
+</div>
+}
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{await Html.RenderPartialAsync("_FileUploadScript");}    
+}

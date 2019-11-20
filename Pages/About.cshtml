@@ -1,0 +1,62 @@
+﻿@page
+@model AboutModel
+@{
+    ViewData["Title"] = "About";
+}
+<h2>@ViewData["Title"]</h2>
+
+<hr />
+
+<h3>What is Southosting?</h3>
+<div class="row">
+    <div class="col-md-10 mx-auto">
+        <p>Southosting is a prototype application for properties in Southampton. It has 4 types of user:</p>
+        <ul>
+            <li>Student</li>
+            <li>Landlord</li>
+            <li>Accommodation Officer</li>
+            <li>Administrator</li>
+        </ul> 
+        <p>Students can view all approved property adverts. Users must be logged in to see any adverts.</p>
+        <p>Landlords can create new adverts, and submit them to be moderated by an Accommodation Officer.</p>
+        <p>
+            Students and Landlords are the only user types that can be chosen when creating a new account.
+            Accommodation Officers can create a student or landlord account, which can then be upgraded by
+            an Administrator.
+        </p>
+        <p>
+            Accommodation Officers can moderate any submitted advert. If rejecting the advert, they can choose
+            to leave a comment on why it was rejected.
+        </p>
+        <p>
+            Administrators can do anything from any of the previous roles. In addition, they can also generate
+            new random users and adverts, make edits to users (including user roles), and clear the entire
+            database.
+        </p>
+    </div>
+</div>
+
+<hr />
+
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <img class="card-img-top" src="https://southostingblob.blob.core.windows.net/images/samson-danziger-profile.png" alt="Samson Danziger Profile Picture" />
+            <div class="card-body">
+                <h5>Samson Danziger</h5>
+                <a href="mailto:spd2g14@soton.ac.uk">spd2g14@soton.ac.uk</a>
+                <p>Developer</p>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card">
+            <img class="card-img-top" src="http://www.buckinghamandcompany.com.au/wp-content/uploads/2016/03/profile-placeholder.png" alt="Placeholder profile picture" />
+            <div class="card-body">
+                <h5>Demetris Mouzouris</h5>
+                <a href="mailto:dm1u18@soton.ac.uk">dm1u18@soton.ac.uk</a>
+                <p>Developer</p>
+            </div>
+        </div>
+    </div>
+</div>

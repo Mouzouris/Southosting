@@ -1,0 +1,18 @@
+<script>
+    var table = $("table#uploaded-files-table");
+    table.hide();
+    $("input[type=file]").change(function () {
+        var files = $(this).get(0).files;
+        if (files.length > 0) table.show();
+        for (var i = 0; i < files.length; ++i) {
+            var row = $('<tr>');
+            $('<th>').attr('scope', 'row').text(i + 1).appendTo(row);
+            $('<td>').text(files[i].name).appendTo(row);
+            $('<td>').text(files[i].size).appendTo(row);
+            
+            var date = new Date(files[i].lastModified);
+            $('<td>').text(date.toLocaleTimeString() + " " + date.toLocaleDateString()).appendTo(row);
+            $('#uploaded-files').append(row);
+        };
+    });
+</script>

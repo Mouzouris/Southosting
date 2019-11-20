@@ -1,0 +1,41 @@
+@page
+@model southosting.Pages.Admin.IndexModel
+@{
+    ViewData["Title"] = "Admin Console";
+}
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">southosting : admin panel</h1>
+        <p class="lead">A Southampton property finder</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4 mx-auto">
+        <h2>Generate Data</h2>
+        <p>
+            <a class="btn btn-primary"
+               asp-page="/Admin/Generate">
+                Generate
+            </a>
+        </p>
+    </div>
+    <div class="col-md-4 mx-auto">
+        <h2>Manage Users</h2>
+        <p>
+            <a class="btn btn-info"
+               asp-page="/Admin/Users/Index">
+                Users
+            </a>
+        </p>
+    </div>
+    <div class="col-md-4 mx-auto">
+        <h2>Delete Data</h2>
+        <p>
+            <a class="btn btn-danger"
+               asp-page="/Admin/DeleteAll">
+                Clear Database
+            </a>
+        </p>
+    </div>
+</div>
